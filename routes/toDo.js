@@ -5,7 +5,7 @@ const express = require("express"),
 	toDoController = require("../controllers/toDo");
 
 router.post("/", (req, res) => {
-	console.log("to dos");
+	console.log(req.body);
 	res.status(200).send("Success");
 });
 
