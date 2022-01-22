@@ -1,15 +1,18 @@
 "use strict";
-const saveTodoItem = require("../model/data/toDo");
+const {
+	saveTodoItem,
+	retrieveToDos: retrieve,
+	removeTodo,
+	modifyTodo,
+} = require("../services/data/toDo");
 
-const create = async (req, res) => {
+const createTodo = async (req, res) => {
 	try {
 		const toDoItem = req.body;
-		console.log(toDoItem);
-		toDoItem.startDate = new Date(toDoItem.startDate);
-		toDoItem.deadline = new Date(toDoItem.deadline);
-
 		const newItem = await saveTodoItem(toDoItem);
-		console.log(newItem);
+
+		//if no newItem log error
+		if (!newItem) return res.status(500).send("Unable to create task!");
 		res.status(200).send("Created");
 	} catch (error) {
 		console.log(error);
@@ -17,4 +20,33 @@ const create = async (req, res) => {
 	}
 };
 
-module.exports = { create };
+const retrieveToDos = async (req, res) => {
+	const toDos = await retrieve();
+	res.status(200).send(toDos);
+};
+
+const deleteTodo = async (req, res) => {
+	const id = req.params.id;
+	const result = await removeTodo(id);
+	if (!result) {
+		res.statusMessage = "A todo item with the specified id was not found";
+		return res.status(404).end();
+	}
+
+	res.status(200).send(result);
+};
+
+const updateTodo = async (req, res) => {
+	const id = req.params.id;
+	const value = req.body;
+
+	const result = await modifyTodo(id, value);
+	if (!result) {
+		res.statusMessage = "A todo item with the specified id was not found";
+		return res.status(404).end();
+	}
+
+	res.status(200).send(result);
+};
+
+module.exports = { createTodo, retrieveToDos, deleteTodo, updateTodo };

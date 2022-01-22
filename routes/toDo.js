@@ -4,11 +4,9 @@ const express = require("express"),
 	router = express(),
 	toDoController = require("../controllers/toDo");
 
-router.post("/", (req, res) => {
-	console.log(req.body);
-	res.status(200).send("Success");
-});
-
-router.post("/create", toDoController.create);
+router.post("/create", toDoController.createTodo);
+router.get("/", toDoController.retrieveToDos);
+router.delete("/:id", toDoController.deleteTodo);
+router.put("/:id", toDoController.updateTodo);
 
 module.exports = router;

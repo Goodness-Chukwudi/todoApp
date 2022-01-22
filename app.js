@@ -6,7 +6,7 @@ const express = require("express"),
 app.use(express.json());
 
 //Route handlers
-app.use("/to-do", toDoRoute);
+app.use("/to-dos", toDoRoute);
 
 // app.get("/users", (req, res) => {
 // 	res.send("<h1>Hello World <br> List of users</h1>");
