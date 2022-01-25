@@ -22,7 +22,14 @@ const createTodo = async (req, res) => {
 
 const retrieveToDos = async (req, res) => {
 	const toDos = await retrieve();
+	if (!toDos) return res.status(404).end("Todo items not found");
 	res.status(200).send(toDos);
+};
+
+const retrieveToDo = async (req, res) => {
+	const toDo = await retrieve(req.params.id);
+	if (!toDo) return res.status(404).end("Todo item not found");
+	res.status(200).send(toDo);
 };
 
 const deleteTodo = async (req, res) => {
@@ -49,4 +56,10 @@ const updateTodo = async (req, res) => {
 	res.status(200).send(result);
 };
 
-module.exports = { createTodo, retrieveToDos, deleteTodo, updateTodo };
+module.exports = {
+	createTodo,
+	retrieveToDos,
+	retrieveToDo,
+	deleteTodo,
+	updateTodo,
+};

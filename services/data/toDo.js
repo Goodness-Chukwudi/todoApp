@@ -11,9 +11,9 @@ const saveTodoItem = async (value) => {
 	}
 };
 
-const retrieveToDos = async () => {
-	const toDos = await ToDoItem.find();
-	return toDos;
+const retrieveToDos = async (id = null) => {
+	if (id) return await ToDoItem.findById(id);
+	return await ToDoItem.find();
 };
 
 const removeTodo = async (id) => {

@@ -1,7 +1,5 @@
 const mongoose = require("mongoose");
 
-const currentDate = new Date().toLocaleDateString();
-
 const toDoItem = new mongoose.Schema({
 	title: { type: String, required: true, maxlength: 500 },
 	description: { type: String, required: true, maxlength: 1000 },
