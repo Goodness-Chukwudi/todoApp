@@ -1,12 +1,14 @@
 const express = require("express"),
 	app = express(),
 	toDoRoute = require("./routes/toDo"),
-	mongoose = require("mongoose");
+	mongoose = require("mongoose"),
+	userRoute = require("./routes/user");
 
 app.use(express.json());
 
 //Route handlers
 app.use("/to-dos", toDoRoute);
+app.use("/users", userRoute);
 
 // app.get("/users", (req, res) => {
 // 	res.send("<h1>Hello World <br> List of users</h1>");

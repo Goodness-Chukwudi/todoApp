@@ -10,7 +10,9 @@ const validateTodoItem = (req, res, next) => {
 		isDone: Joi.boolean().required(),
 	});
 
-	const { value, error } = todoItemSchema.validate(req.body);
+	const { value, error } = todoItemSchema.validate(req.body, {
+		convert: false,
+	});
 	if (error) return res.status(400).send(error.details[0].message);
 
 	next();
